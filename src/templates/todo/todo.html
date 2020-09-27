@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <title>Hi there</title>
 </head>
+
+<style>
+    .hello-msg{
+        font-size:18px;
+        color: #33ccff;
+        margin-right: 20px;
+    }
+
+</style>
+
 <body>
     <h1>Hi there</h1>
+
+
+    <span class="hello-msg">Hello, {{ request.user }}</span>
+    <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
 </body>
 </html>
