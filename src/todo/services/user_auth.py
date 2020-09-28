@@ -24,8 +24,11 @@ def register_user(request):
             messages.success(request, 'Account was created for ' + user)
             return redirect('login')
 
-    print(form.errors.as_json())
-    context = {'form': form}
+    errors = form.errors.as_json()
+    context = {
+        'form': form,
+        'errors': errors,
+    }
     return render(request, 'todo/register.html', context)
 
 

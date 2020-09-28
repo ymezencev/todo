@@ -72,7 +72,7 @@ body {
 .form-control i {
     visibility: hidden;
     position: absolute;
-    top: 40px;
+    top: 36px;
     right: 10px;
 }
 
@@ -112,6 +112,18 @@ body {
 }
 
 .form button {
+    background-color: #8e44ad;
+    border: 2px solid #8e44ad;
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+.form .login_btn {
     background-color: #8e44ad;
     border: 2px solid #8e44ad;
     border-radius: 4px;
