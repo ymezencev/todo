@@ -8,7 +8,8 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #9b59b6;
+    background-color: #448AFF;
+    color: #212121;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,14 +23,14 @@ body {
     border-radius: 5px;
     overflow: hidden;
     box-shadow:0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 400px;
+    width: 350px;
     max-width: 100%;
 }
 
 .header {
     background-color: #f7f7f7;
     border-bottom: 1px solid #f0f0f0;
-    padding: 20px 40px;
+    padding: 20px 30px;
 }
 
 .header h2 {
@@ -37,12 +38,12 @@ body {
 }
 
 .form {
-    padding: 30px 40px;
+    padding: 5px 30px;
 }
 
 .form-control {
-    margin-bottom: 10px;
-    padding-bottom: 20px;
+    margin-bottom: 0;
+    padding-bottom: 15px;
     position:relative;
 }
 
@@ -57,7 +58,7 @@ body {
     display: block;
     font-family: inherit;
     font-size: 14px;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
 }
 
@@ -72,8 +73,8 @@ body {
 .form-control i {
     visibility: hidden;
     position: absolute;
-    top: 36px;
-    right: 10px;
+    top: 32px;
+    right: 8px;
 }
 
 .form-control.success i.done {
@@ -89,49 +90,39 @@ body {
 .form-control small {
     visibility: hidden;
     position: absolute;
-    bottom: 0;
+    top: 60px;
     left: 0;
 }
 
 .form-control.error small {
     color: #e73c3c;
     visibility: visible;
+    font-size: 12px;
 }
 
 .form-text {
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     width: 100%;
+    margin-top: 10px;
     display: inline-block;
     text-align: center;
 }
 
 .form-text a {
-    color: #8e44ad;
+    color: #1976D2;
     text-decoration: none;
 }
 
 .form button {
-    background-color: #8e44ad;
-    border: 2px solid #8e44ad;
+    background-color: #3F51B5;
+    border: 2px solid #3F51B5;
     border-radius: 4px;
     color: #fff;
     display: block;
     font-family: inherit;
     font-size: 16px;
+    margin-top: 25px;
     padding: 10px;
     width: 100%;
 }
-
-.form .login_btn {
-    background-color: #8e44ad;
-    border: 2px solid #8e44ad;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-family: inherit;
-    font-size: 16px;
-    padding: 10px;
-    width: 100%;
-}
-

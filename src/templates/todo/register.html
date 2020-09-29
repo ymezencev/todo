@@ -16,7 +16,6 @@
             <i class="small material-icons done">done</i>
             <i class="small material-icons error">priority_high</i>
             <small>Error message</small>
-            <!--div class="form-text">{{ form.username.errors }}</div-->
         </div>
         <div class="form-control">
             <label>Email</label>
@@ -24,7 +23,6 @@
             <i class="small material-icons done">done</i>
             <i class="small material-icons error">priority_high</i>
             <small>Error message</small>
-            <!--div class="form-post-validation">{{ form.email.errors }}</div-->
         </div>
         <div class="form-control">
             <label>Password</label>
@@ -32,7 +30,6 @@
             <i class="small material-icons done">done</i>
             <i class="small material-icons error">priority_high</i>
             <small>Error message </small>
-            <!--div class="form-text">{{ form.password1.errors }}</div-->
         </div>
         <div class="form-control">
             <label>Password check</label>
@@ -40,7 +37,6 @@
             <i class="small material-icons done">done</i>
             <i class="small material-icons error">priority_high</i>
             <small>Error message</small>
-            <!--div class="form-text">{{ form.password2.errors }}</div-->
         </div>
         <button type="submit" value="Register Account">Register Account
         </button>
@@ -60,16 +56,24 @@
 
     let isFormValid = true;
 
-    const postErrors = JSON.parse("{{errors|escapejs}}");
+    let postErrors = JSON.parse("{{errors|escapejs}}");
 
     username.placeholder = 'todo_user17';
     email.placeholder = 'user@todo.com';
     password1.placeholder = 'Enter password';
     password2.placeholder = 'Check Password';
 
+    document.addEventListener('DOMContentLoaded', (e) => {
+    if (Object.keys(postErrors).length !== 0) {
+        CheckAllInputs();
+    }
+    });
+
     form.addEventListener('submit', (e) => {
         CheckAllInputs();
-        //e.preventDefault();
+        if (isFormValid) {
+            e.preventDefault();
+        }
     });
 
     username.addEventListener('blur', (e) => CheckInputUsername(), true);
@@ -80,10 +84,14 @@
     function CheckInputUsername() {
         const usernameValue = username.value.trim();
 
-        if (usernameValue === '') {
+        if (postErrors['username']) {
+            setErrorFor(username, postErrors['username'][0]['message']);
+            username.value = '';
+            delete postErrors['username'];
+            isFormValid = false;
+        } else if (usernameValue === '') {
             setErrorFor(username, 'Username cannot be blank.');
-        } else if (postErrors['username']) {
-            setErrorFor(username, postErrors['username'][0]['message'])
+            isFormValid = false;
         } else {
             setSuccessFor(username);
         }
@@ -92,12 +100,16 @@
     function CheckInputEmail() {
         const emailValue = email.value.trim();
 
-        if (emailValue === '') {
+        if (postErrors['email']) {
+            setErrorFor(email, postErrors['email'][0]['message']);
+            delete postErrors['email'];
+            isFormValid = false;
+        } else if (emailValue === '') {
             setErrorFor(email, 'Email cannot be blank.');
+            isFormValid = false;
         } else if (!CheckEmail(emailValue)) {
             setErrorFor(email, 'Email is not valid.');
-        } else if (postErrors['email']) {
-            setErrorFor(email, postErrors['email'][0]['message'])
+            isFormValid = false;
         } else {
             setSuccessFor(email);
         }
@@ -105,9 +117,9 @@
 
     function CheckInputPassword1() {
         const password1Value = password1.value.trim();
-
         if (password1Value === '') {
             setErrorFor(password1, 'Password cannot be blank.');
+            isFormValid = false;
         } else {
             setSuccessFor(password1);
         }
@@ -117,12 +129,17 @@
         const password1Value = password1.value.trim();
         const password2Value = password2.value.trim();
 
-        if (password2Value === '') {
+        if (postErrors['password2']) {
+            setErrorFor(password2, postErrors['password2'][0]['message']);
+            setErrorFor(password1, 'Password cannot be blank.');
+            delete postErrors['password2'];
+            isFormValid = false;
+        } else if (password2Value === '') {
             setErrorFor(password2, 'Password cannot be blank.');
+            isFormValid = false;
         } else if (password2Value !== password1Value) {
             setErrorFor(password2, 'Passwords does not match.');
-        } else if (postErrors['password2']) {
-            setErrorFor(password2, postErrors['password2'][0]['message'])
+            isFormValid = false;
         } else {
             setSuccessFor(password2);
         }
