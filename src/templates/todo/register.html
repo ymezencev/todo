@@ -2,7 +2,7 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-<link rel="stylesheet" href="{% static "user_auth.css" %}">
+<link rel="stylesheet" href="{% static 'todo/css/user_auth.css' %}">
 
 <div class="container">
     <div class="header">
@@ -47,127 +47,9 @@
     </form>
 </div>
 
-<script>
-    const form = document.getElementById('form');
-    const username = document.getElementById('id_username');
-    const email = document.getElementById('id_email');
-    const password1 = document.getElementById('id_password1');
-    const password2 = document.getElementById('id_password2');
-
-    let isFormValid = true;
-
-    let postErrors = JSON.parse("{{errors|escapejs}}");
-
-    username.placeholder = 'todo_user17';
-    email.placeholder = 'user@todo.com';
-    password1.placeholder = 'Enter password';
-    password2.placeholder = 'Check Password';
-
-    document.addEventListener('DOMContentLoaded', (e) => {
-    if (Object.keys(postErrors).length !== 0) {
-        CheckAllInputs();
-    }
-    });
-
-    form.addEventListener('submit', (e) => {
-        CheckAllInputs();
-        if (isFormValid) {
-            e.preventDefault();
-        }
-    });
-
-    username.addEventListener('blur', (e) => CheckInputUsername(), true);
-    email.addEventListener('blur', (e) => CheckInputEmail(), true);
-    password1.addEventListener('blur', (e) => CheckInputPassword1(), true);
-    password2.addEventListener('blur', (e) => CheckInputPassword2(), true);
-
-    function CheckInputUsername() {
-        const usernameValue = username.value.trim();
-
-        if (postErrors['username']) {
-            setErrorFor(username, postErrors['username'][0]['message']);
-            username.value = '';
-            delete postErrors['username'];
-            isFormValid = false;
-        } else if (usernameValue === '') {
-            setErrorFor(username, 'Username cannot be blank.');
-            isFormValid = false;
-        } else {
-            setSuccessFor(username);
-        }
-    }
-
-    function CheckInputEmail() {
-        const emailValue = email.value.trim();
-
-        if (postErrors['email']) {
-            setErrorFor(email, postErrors['email'][0]['message']);
-            delete postErrors['email'];
-            isFormValid = false;
-        } else if (emailValue === '') {
-            setErrorFor(email, 'Email cannot be blank.');
-            isFormValid = false;
-        } else if (!CheckEmail(emailValue)) {
-            setErrorFor(email, 'Email is not valid.');
-            isFormValid = false;
-        } else {
-            setSuccessFor(email);
-        }
-    }
-
-    function CheckInputPassword1() {
-        const password1Value = password1.value.trim();
-        if (password1Value === '') {
-            setErrorFor(password1, 'Password cannot be blank.');
-            isFormValid = false;
-        } else {
-            setSuccessFor(password1);
-        }
-    }
-
-    function CheckInputPassword2() {
-        const password1Value = password1.value.trim();
-        const password2Value = password2.value.trim();
-
-        if (postErrors['password2']) {
-            setErrorFor(password2, postErrors['password2'][0]['message']);
-            setErrorFor(password1, 'Password cannot be blank.');
-            delete postErrors['password2'];
-            isFormValid = false;
-        } else if (password2Value === '') {
-            setErrorFor(password2, 'Password cannot be blank.');
-            isFormValid = false;
-        } else if (password2Value !== password1Value) {
-            setErrorFor(password2, 'Passwords does not match.');
-            isFormValid = false;
-        } else {
-            setSuccessFor(password2);
-        }
-    }
-
-    function CheckAllInputs() {
-        CheckInputUsername();
-        CheckInputEmail();
-        CheckInputPassword1();
-        CheckInputPassword2();
-    }
-
-    function setErrorFor(input, message) {
-        const formControl = input.parentElement; // .form-control div
-        const smallLabel = formControl.querySelector('small');
-        smallLabel.innerText = message;
-        formControl.className = 'form-control error';
-    }
-
-    function setSuccessFor(input) {
-        const formControl = input.parentElement; // .form-control div
-        const smallLabel = formControl.querySelector('small');
-        smallLabel.innerText = '';
-        formControl.className = 'form-control success';
-    }
-
-    function CheckEmail(email) {
-        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-    }
-
+<script type="text/javascript">
+    let errors = {{ errors|safe }};
 </script>
+
+<script type="text/javascript" src="{% static 'todo/js/user_auth.js' %}"></script>
+<script type="text/javascript" src="{% static 'todo/js/register.js' %}"></script>

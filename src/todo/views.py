@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .services.user_auth import register_user, login_user, logout_user
 
-
 def register_page(request):
     """Страница регистрации"""
     return register_user(request)
