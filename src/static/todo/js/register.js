@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 form.addEventListener('submit', (e) => {
     CheckAllInputs();
-    if (isFormValid) {
+    if (!isFormValid) {
         e.preventDefault();
     }
 });
@@ -96,6 +96,7 @@ function CheckInputPassword2() {
 }
 
 function CheckAllInputs() {
+    isFormValid = true;
     CheckInputUsername();
     CheckInputEmail();
     CheckInputPassword1();

@@ -1,0 +1,42 @@
+
+{% load static %}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<link rel="stylesheet" href="{% static 'todo/css/user_auth.css' %}">
+
+<div class="container">
+    <div class="header">
+        <h2>Login</h2>
+    </div>
+    <form class="form" id="form" method="POST" action="" novalidate>
+        {% csrf_token %}
+        <div class="form-control">
+            <label>Username</label>
+            {{ form.username }}
+            <i class="small material-icons done">done</i>
+            <i class="small material-icons error">priority_high</i>
+            <small>Error message</small>
+        </div>
+        <div class="form-control">
+            <label>Password</label>
+            {{ form.password }}
+            <i class="small material-icons done">done</i>
+            <i class="small material-icons error">priority_high</i>
+            <small>Error message </small>
+        </div>
+
+        <button type="submit" value="Login">Login
+        </button>
+        <div class="form-text">
+            Don't have an account? <a href="{% url 'register' %}">Register</a>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    let errors = {{ errors|safe }};
+</script>
+
+<script type="text/javascript" src="{% static 'todo/js/user_auth.js' %}"></script>
+<script type="text/javascript" src="{% static 'todo/js/login.js' %}"></script>
