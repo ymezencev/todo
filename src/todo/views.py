@@ -3,15 +3,15 @@ from django.contrib.auth.decorators import login_required
 from .services.user_auth import register_user, login_user, logout_user
 
 def register_page(request):
-    """Страница регистрации"""
+    """Page for user registration"""
     return register_user(request)
 
 def login_page(request):
-    """Страница входа в приложение"""
+    """Page for user login"""
     return login_user(request)
 
 def logout(request):
-    """Выход из системы"""
+    """Page for user logout"""
     return logout_user(request)
 
 

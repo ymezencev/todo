@@ -1,24 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hi there</title>
-</head>
+{% extends "todo/base_todo.html" %}
+{% load static %}
+{% block head %}{% endblock %}
+{% block title %}To Do{% endblock %}
 
-<style>
-    .hello-msg{
-        font-size:18px;
-        color: #33ccff;
-        margin-right: 20px;
-    }
+{% block content %}
+    <h1> Hi there</h1>
+{% endblock %}
 
-</style>
-
-<body>
-    <h1>Hi there</h1>
-
-
-    <span class="hello-msg">Hello, {{ request.user }}</span>
-    <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
-</body>
-</html>
+{% block script %}{% endblock %}

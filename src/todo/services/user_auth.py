@@ -12,6 +12,7 @@ class CreateUserForm(UserCreationForm):
 
 
 def register_user(request):
+    """Method fot user registration"""
     if request.user.is_authenticated:
         return redirect('todo')
     form = CreateUserForm()
@@ -31,9 +32,11 @@ def register_user(request):
 
 
 def login_user(request):
+    """Method for user login"""
     if request.user.is_authenticated:
         return redirect('todo')
     form = AuthenticationForm()
+    errors = {}
 
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -46,7 +49,7 @@ def login_user(request):
                 login(request, user)
                 return redirect('todo')
 
-    errors = {'invalid_login': 'Incorrect username or password'}
+        errors = {'invalid_login': 'Incorrect username or password'}
 
     context = {
         'form': form,
@@ -57,5 +60,6 @@ def login_user(request):
 
 
 def logout_user(request):
+    """Method for user logout"""
     logout(request)
     return redirect('login')

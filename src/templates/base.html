@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Base{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block base_head %}{% endblock %}
+</head>
+<body>
+
+<div id="base_content">
+        {% block base_content %}{% endblock %}
+    </div>
+
+</body>
+    {% block base_script %}{% endblock %}
+</html>
+

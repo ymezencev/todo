@@ -1,8 +1,13 @@
+{% extends "base.html" %}
 {% load static %}
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-<link rel="stylesheet" href="{% static 'todo/css/user_auth.css' %}">
+{% block base_head %}
+    <link rel="stylesheet" href="{% static 'todo/css/user_auth.css' %}">
+{% endblock %}
+
+
+{% block title %}Login{% endblock %}
+{% block base_content %}
 
 <div class="container">
     <div class="header">
@@ -47,9 +52,13 @@
     </form>
 </div>
 
-<script type="text/javascript">
-    let errors = {{ errors|safe }};
-</script>
+{% endblock %}
 
-<script type="text/javascript" src="{% static 'todo/js/user_auth.js' %}"></script>
-<script type="text/javascript" src="{% static 'todo/js/register.js' %}"></script>
+{% block base_script %}
+    <script type="text/javascript">
+        let errors = {{ errors|safe }};
+    </script>
+
+    <script type="text/javascript" src="{% static 'todo/js/user_auth.js' %}"></script>
+    <script type="text/javascript" src="{% static 'todo/js/register.js' %}"></script>
+{% endblock %}
