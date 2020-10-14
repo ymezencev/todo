@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
 
-. {
-  box-sizing: border-box;
+
+html {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -12,15 +16,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0;
 }
 
-.nav {
-    position: absolute;
-    left: 0px;
-    top: 0;
+#base_content {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav {
     height: 48px;
     line-height: 48px;
     background-color: #448AFF;

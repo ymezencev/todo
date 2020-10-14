@@ -1,10 +1,51 @@
 {% extends "todo/base_todo.html" %}
 {% load static %}
-{% block head %}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'todo/css/todo.css' %}">
+{% endblock %}
 {% block title %}To Do{% endblock %}
 
 {% block content %}
-    <h1> Hi there</h1>
+
+    <div class="categories">
+        <div class="title"> Categories</div>
+        <!-- All categories here-->
+        <a href="{% url 'category' 'all'%}"><div class="category-item main">All tasks</div></a>
+        <a href="{% url 'category' 'important' %}"><div class="category-item main">Important</div></a>
+        <a href="{% url 'category' 'my_day' %}"><div class="category-item main">My day</div></a>
+
+        <div class="category-item custom"></div>
+        {% for category in categories %}
+            <a href="{% url 'category' category.url %}"><div class="category-item">{{ category.name }}</div></a>
+        {% endfor %}
+    </div>
+
+    <div class="tasks">
+        <div class="title">
+            Title tasks {{ today }}
+        </div>
+        <div class="new-task">
+            <form  method="POST" action="{% url 'add_new_task' current_category_url %}" novalidate>
+                {% csrf_token %}
+                <input type="text" name="new_task" class="add-task-input"
+                       placeholder="Add a new task">
+                <input class="add-task-btn" type="submit" value="task">
+            </form>
+        </div>
+        <!-- All tasks here-->
+        {% for t in tasks %}
+            <div class="task-item">{{ t.task }}</div>
+        {% endfor %}
+
+    </div>
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+    <!--script>
+        document.addEventListener('DOMContentLoaded', (e) => {
+            // set up the first main category item active
+            document.querySelector('.category-item').classList.add('active')
+        });
+    </script-->
+
+{% endblock %}
