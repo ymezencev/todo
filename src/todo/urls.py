@@ -6,9 +6,13 @@ urlpatterns = [
     path('login/', views.login_page, name='login'),
     path('logout/', views.logout, name='logout'),
 
-    path('', views.redirect_to_page_all_tasks, name='todo'), # redirect to all
-    path('todo/', views.redirect_to_page_all_tasks, name='todo'), # redirect to all
+    path('', views.redirect_to_page_all_tasks, name='todo'),
+    path('todo/', views.redirect_to_page_all_tasks, name='todo'),
 
-    path('todo/<slug:category_url>/', views.get_todo_page, name='category'),
-    path('todo/<slug:category_url>/add_new_task', views.add_new_task, name='add_new_task')
+    path('todo/<slug:category_slug>/', views.get_todo_page, name='category'),
+
+    path('todo/<slug:category_slug>/add_new_task', views.add_new_task, name='add_new_task'),
+    path('todo/<slug:category_slug>/delete_task', views.delete_task, name='delete_task'),
+
+    path('todo/<slug:category_slug>/add_new_category', views.add_new_category, name='add_new_category'),
 ]

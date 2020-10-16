@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .services.user_auth import register_user, login_user, logout_user
-from .services import todo
+from .services import todo_task, todo_category
 
 from datetime import date
 
@@ -20,18 +20,18 @@ def logout(request):
 
 
 @login_required
-def get_todo_page(request, category_url:str='all'):
+def get_todo_page(request, category_slug:str='all'):
     """ Render todo page:
         Get categories
-        Get all tasks or get category_url tasks"""
+        Get all tasks or get category_slug tasks"""
     user_id = request.user.id
     today = date.today()
-    categories = todo.get_categories(user_id=user_id)
-    tasks = todo.get_tasks(user_id=user_id, category_url=category_url)
+    categories = todo_category.get_categories(user_id=user_id)
+    tasks = todo_task.get_tasks(category_slug=category_slug, user_id=user_id)
 
     context = {
         'today': today,
-        'current_category_url': category_url,
+        'current_category_slug': category_slug,
         'categories': categories,
         'tasks': tasks,
     }
@@ -40,21 +40,52 @@ def get_todo_page(request, category_url:str='all'):
 
 @login_required
 def redirect_to_page_all_tasks(request):
-    category_url = 'all'
-    url = reverse('category', args=(category_url,))
+    category_slug = 'all'
+    url = reverse('category', args=(category_slug,))
     return redirect(url)
+
+@login_required
+def add_new_category(request, category_slug: str):
+    """Add a new category and go to the todo page with this category"""
+
+    if request.method == 'POST':
+        new_category_name = request.POST.get('new_category')
+        if new_category_name is not None and new_category_name != '':
+            user_id = request.user.id
+            new_category = todo_category.add_new_category(
+                name=new_category_name,
+                user_id=user_id,)
+            category_slug = new_category.slug
+
+        url = reverse('category', args=(category_slug,))
+        return redirect(url)
 
 
 @login_required
-def add_new_task(request, category_url:str='all'):
+def add_new_task(request, category_slug: str):
     """Add a new task and go back to the todo page"""
 
     if request.method == 'POST':
-        new_task = request.POST.get('new_task')
-        if new_task is not None or new_task != '':
+        new_task_text = request.POST.get('new_task')
+        if new_task_text is not None and new_task_text != '':
             # add a new task
             user_id = request.user.id
-            todo.add_task(user_id=user_id, text=new_task, category_url=category_url)
+            new_task = todo_task.add_task(
+                text=new_task_text,
+                category_slug=category_slug,
+                user_id=user_id,)
 
-        url = reverse('category', args=(category_url,))
+        url = reverse('category', args=(category_slug,))
         return redirect(url)
+
+
+@login_required
+def delete_task(request, category_slug: str):
+    if request.method == 'POST':
+        task_id = request.POST.get('task')
+        if task_id is not None:
+            todo_task.delete_task(task_id = task_id)
+
+        url = reverse('category', args=(category_slug,))
+        return redirect(url)
+

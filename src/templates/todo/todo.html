@@ -6,35 +6,53 @@
 {% block title %}To Do{% endblock %}
 
 {% block content %}
-
+    <!-- Left bar categories-->
     <div class="categories">
         <div class="title"> Categories</div>
-        <!-- All categories here-->
+        <!-- Main categories-->
         <a href="{% url 'category' 'all'%}"><div class="category-item main">All tasks</div></a>
         <a href="{% url 'category' 'important' %}"><div class="category-item main">Important</div></a>
         <a href="{% url 'category' 'my_day' %}"><div class="category-item main">My day</div></a>
 
+        <!-- Add a new category form -->
+        <div class="category-item custom-form">
+             <form  method="POST" action="{% url 'add_new_category' current_category_slug %}" novalidate>
+                {% csrf_token %}
+                <input type="text" name="new_category" placeholder="Create a new category">
+                <input class="add-category-btn" type="submit" value="category">
+            </form>
+        </div>
+
+        <!-- Custom categories -->
         <div class="category-item custom"></div>
         {% for category in categories %}
-            <a href="{% url 'category' category.url %}"><div class="category-item">{{ category.name }}</div></a>
+            <a href="{% url 'category' category.slug %}"><div class="category-item">{{ category.name }}</div></a>
         {% endfor %}
     </div>
 
+    <!-- Tasks -->
     <div class="tasks">
         <div class="title">
             Title tasks {{ today }}
         </div>
+        <!-- Add a new task form -->
         <div class="new-task">
-            <form  method="POST" action="{% url 'add_new_task' current_category_url %}" novalidate>
+            <form  method="POST" action="{% url 'add_new_task' current_category_slug %}" novalidate>
                 {% csrf_token %}
                 <input type="text" name="new_task" class="add-task-input"
                        placeholder="Add a new task">
-                <input class="add-task-btn" type="submit" value="task">
+                <input class="add-task-btn" type="submit" value="Add task">
             </form>
         </div>
-        <!-- All tasks here-->
+        <!-- All tasks -->
         {% for t in tasks %}
-            <div class="task-item">{{ t.task }}</div>
+            <div class="task-item">{{ t.task }}
+                 <form method="POST" action="{% url 'delete_task' current_category_slug %}" novalidate>
+                     {% csrf_token %}
+                     <input type="hidden" name="task" value="{{ t.id }}">
+                    <input class="" type="submit" value="Delete">
+                 </form>
+            </div>
         {% endfor %}
 
     </div>
