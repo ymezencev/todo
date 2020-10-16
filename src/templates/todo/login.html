@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block base_head %}
+{% block head %}
     <link rel="stylesheet" href="{% static 'todo/css/user_auth.css' %}">
 {% endblock %}
 
 
 {% block title %}Login{% endblock %}
-{% block base_content %}
+{% block content %}
 
 <div class="container">
     <div class="header">
@@ -40,7 +40,7 @@
 
 {% endblock %}
 
-{% block base_script %}
+{% block script %}
     <script type="text/javascript">
         let errors = {{ errors|safe }};
     </script>

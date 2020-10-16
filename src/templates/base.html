@@ -8,15 +8,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% block base_head %}{% endblock %}
+    {% block head %}{% endblock %}
 </head>
 <body>
 
-<div id="base_content">
-        {% block base_content %}{% endblock %}
+{% block nav %}{% endblock %}
+
+<div id="content">
+        {% block content %}{% endblock %}
     </div>
 
 </body>
-    {% block base_script %}{% endblock %}
+    {% block script %}{% endblock %}
 </html>
 

@@ -1,0 +1,32 @@
+
+{% load static %}
+
+{% block task %}
+
+     <div class="tasks">
+        <div class="title">
+            Title tasks {{ today }}
+        </div>
+        <!-- Add a new task form -->
+        <div class="new-task">
+            <form  method="POST" action="{% url 'add_new_task' current_category_slug %}" novalidate>
+                {% csrf_token %}
+                <input type="text" name="new_task" class="add-task-input"
+                       placeholder="Add a new task">
+                <input class="add-task-btn" type="submit" value="Add task">
+            </form>
+        </div>
+        <!-- All tasks -->
+        {% for t in tasks %}
+            <div class="task-item">{{ t.task }}
+                 <form method="POST" action="{% url 'delete_task' current_category_slug %}" novalidate>
+                     {% csrf_token %}
+                     <input type="hidden" name="task" value="{{ t.id }}">
+                    <input class="" type="submit" value="Delete">
+                 </form>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% load static %}
+
+{% block nav_bar %}
+    <div class="nav">
+        <a href="#" class="logo">
+            <i class="small material-icons">apps</i>To Do</a>
+        <a href="#">Hello, {{ request.user }}</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+{% endblock %}

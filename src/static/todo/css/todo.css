@@ -1,6 +1,6 @@
 
-a {
-    text-decoration: none;
+#content {
+    flex-direction: row;
 }
 
 .title {
