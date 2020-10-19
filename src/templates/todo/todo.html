@@ -23,4 +23,51 @@
 
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+        highlightCurrentCategoryMenu();
+        autoHideCategories();
+    });
+
+    // hide categories
+    const hideCategoriesBtn = document.getElementById('hide-categories-btn');
+    hideCategoriesBtn.addEventListener('click', (e) => {
+        hideCategories();
+    });
+
+
+    function hideCategories() {
+        let categoriesClassList = document.querySelector('.categories').classList;
+        let isHidden = categoriesClassList.contains('hidden') === true;
+        categoriesClassList.toggle("hidden");
+        localStorage.setItem("isCategoriesHidden", !isHidden);
+        console.log('set isCategoriesHidden to ' + !isHidden);
+    }
+
+    function autoHideCategories() {
+        const isCategoriesHidden = localStorage.getItem("isCategoriesHidden");
+        console.log('isCategoriesHidden: ' + isCategoriesHidden);
+        if (isCategoriesHidden === 'true') {
+            console.log('HIIIIIIDE');
+            hideCategories();
+        }
+    }
+
+    function highlightCurrentCategoryMenu() {
+        // highlights current menu category
+        let currentURL = window.location.href;
+
+        document.querySelectorAll('.categories a').forEach(p => {
+            if(currentURL.indexOf(p.getAttribute('href')) !== -1){
+              p.classList.add('active');
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock %}

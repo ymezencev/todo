@@ -16,12 +16,19 @@
     width: 120px;
 }
 
-.nav .logo {
+.nav .nav-name {
     margin-right: auto;
+    color: #fff;
+    padding-left: 8px;
 }
-.nav .logo i {
-    transform: translate(-25%, +25%);
+
+#logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
 }
+
 
 .nav a:hover {
     background-color: #3F51B5;
