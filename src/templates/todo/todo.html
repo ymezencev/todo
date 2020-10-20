@@ -5,6 +5,8 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'todo/css/nav_bar.css' %}">
     <link rel="stylesheet" href="{% static 'todo/css/todo.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/todo_category.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/todo_task.css' %}">
 {% endblock %}
 
 
@@ -25,49 +27,9 @@
 
 {% block script %}
 
-<script>
+    <script type="text/javascript"></script>
 
-    document.addEventListener('DOMContentLoaded', (e) => {
-        highlightCurrentCategoryMenu();
-        autoHideCategories();
-    });
-
-    // hide categories
-    const hideCategoriesBtn = document.getElementById('hide-categories-btn');
-    hideCategoriesBtn.addEventListener('click', (e) => {
-        hideCategories();
-    });
-
-
-    function hideCategories() {
-        let categoriesClassList = document.querySelector('.categories').classList;
-        let isHidden = categoriesClassList.contains('hidden') === true;
-        categoriesClassList.toggle("hidden");
-        localStorage.setItem("isCategoriesHidden", !isHidden);
-        console.log('set isCategoriesHidden to ' + !isHidden);
-    }
-
-    function autoHideCategories() {
-        const isCategoriesHidden = localStorage.getItem("isCategoriesHidden");
-        console.log('isCategoriesHidden: ' + isCategoriesHidden);
-        if (isCategoriesHidden === 'true') {
-            console.log('HIIIIIIDE');
-            hideCategories();
-        }
-    }
-
-    function highlightCurrentCategoryMenu() {
-        // highlights current menu category
-        let currentURL = window.location.href;
-
-        document.querySelectorAll('.categories a').forEach(p => {
-            if(currentURL.indexOf(p.getAttribute('href')) !== -1){
-              p.classList.add('active');
-            }
-        });
-    }
-
-</script>
-
+    <script type="text/javascript" src="{% static 'todo/js/todo.js' %}"></script>
+    <script type="text/javascript" src="{% static 'todo/js/todo_category.js' %}"></script>
 
 {% endblock %}

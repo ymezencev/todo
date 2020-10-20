@@ -44,6 +44,7 @@ def redirect_to_page_all_tasks(request):
     url = reverse('category', args=(category_slug,))
     return redirect(url)
 
+
 @login_required
 def add_new_category(request, category_slug: str):
     """Add a new category and go to the todo page with this category"""
@@ -59,6 +60,17 @@ def add_new_category(request, category_slug: str):
 
         url = reverse('category', args=(category_slug,))
         return redirect(url)
+
+
+@login_required
+def delete_category(request, category_slug: str):
+    """Delete category"""
+    if request.method == 'GET':
+        user_id = request.user.id
+        todo_category.delete_category_by_slug(slug=category_slug, user_id=user_id)
+
+    url = reverse('category', args=('all',))
+    return redirect(url)
 
 
 @login_required

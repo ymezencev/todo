@@ -1,0 +1,97 @@
+
+/*** CATEGORIES ***/
+
+.title {
+    background-color: #f5f5f5;
+    color: #1976D2;
+    padding: 20px 10px 20px 10px;
+    height: 20px;
+}
+
+.categories {
+    background-color: #f5f5f5;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.categories.hidden {
+    width: 50px;
+}
+
+.categories.hidden span {
+    display: none;
+    visibility: hidden;
+}
+
+.category-scroll-area {
+    overflow-y: auto;
+}
+
+.category-item {
+    text-decoration: none;
+    color: #757575;
+    padding: 10px 0 10px 0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.category-item:hover {
+    background-color: #fff;
+    color: #757575;
+}
+
+.category-item i {
+    padding: 10px;
+}
+
+.category-item.active {
+    background-color: #f0f0f0;
+    color: #1976D2;
+}
+
+#hide-categories-btn:hover {
+    cursor: pointer;
+}
+
+/* add category block*/
+.add-category-form {
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    border-top: solid 2px #f0f0f0;
+    border-bottom: solid 2px #f0f0f0;
+    display: flex;
+    align-items: center;
+}
+
+.add-category-form input {
+    height: 35px;
+    width: 200px;
+}
+.add-category-form:hover {
+    background-color: #f5f5f5;
+}
+.add-category-form button {
+    height: 40px;
+    width: 45px;
+}
+
+/* Edit category box*/
+.edit-category-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    display: none;
+    flex-direction: column;
+    background-color: #f5f5f5;
+
+}
+
+#delete-category-btn {
+    color: #e73c3c;
+    border-top: solid 2px #f0f0f0;
+    border-bottom: solid 2px #f0f0f0;
+}

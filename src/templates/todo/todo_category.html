@@ -25,7 +25,7 @@
         <!-- Custom categories -->
         <div style="height: 20px"></div>
         {% for category in categories %}
-            <a href="{% url 'category' category.slug %}" class="category-item">
+            <a href="{% url 'category' category.slug %}" class="category-item custom-category">
                 <i class="small material-icons">drag_handle</i><span>{{ category.name }}</span>
             </a>
         {% endfor %}
@@ -38,15 +38,23 @@
         <i class="small material-icons">add</i>
          <form  method="POST" action="{% url 'add_new_category' current_category_slug %}" novalidate>
             {% csrf_token %}
-             <span id="add">
-             <input type="text" name="new_category" placeholder="Add category">
-             <button type="submit" value="category">
+             <span class="flex-span">
+             <input type="text" name="new_category" placeholder="Add category" class="todo-input">
+             <button type="submit" value="category" class="todo-input-button">
                  <i class="small material-icons">playlist_add</i>
              </button>
              </span>
         </form>
     </div>
 
+</div>
+
+<!-- Edit category box-->
+
+<div class="edit-category-box" id="edit-category-pop-up">
+    <a href="" class="category-item" id="delete-category-btn">
+        <i class="small material-icons">delete_forever</i><span>Delete category</span>
+    </a>
 </div>
 
 {% endblock %}

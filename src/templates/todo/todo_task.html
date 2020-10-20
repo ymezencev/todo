@@ -11,22 +11,65 @@
         <div class="new-task">
             <form  method="POST" action="{% url 'add_new_task' current_category_slug %}" novalidate>
                 {% csrf_token %}
-                <input type="text" name="new_task" class="add-task-input"
-                       placeholder="Add a new task">
-                <input class="add-task-btn" type="submit" value="Add task">
+                <span class="flex-span">
+                    <i class="small material-icons" id="add-task-icon">control_point</i>
+                    <input type="text" name="new_task" class="add-task-input  todo-input"
+                           placeholder="Add a new task">
+                    <input class="add-task-btn todo-input-button" type="submit" value="Add task">
+                </span>
             </form>
         </div>
         <!-- All tasks -->
+        <div class="tasks-scroll-area">
         {% for t in tasks %}
-            <div class="task-item">{{ t.task }}
+            <div class="task-item">
+                <i class="small material-icons">radio_button_unchecked</i> {{ t.task }}
                  <form method="POST" action="{% url 'delete_task' current_category_slug %}" novalidate>
                      {% csrf_token %}
                      <input type="hidden" name="task" value="{{ t.id }}">
-                    <input class="" type="submit" value="Delete">
+                    <!--input class="" type="submit" value="Delete"-->
                  </form>
             </div>
         {% endfor %}
+        </div>
 
     </div>
 
+    <script>
+    const addTaskInput = document.querySelector('.add-task-input');
+    const addTaskIcon = document.getElementById('add-task-icon');
+
+    // Tasks events listener
+    document.addEventListener('DOMContentLoaded', (e) => {
+
+        // add task input change icon to unchecked
+        addTaskInput.addEventListener('focus', function() {
+            setUncheckedIcon(addTaskIcon);
+        });
+        // add task input change icon to add
+        addTaskInput.addEventListener('blur', function() {
+            setAddIcon(addTaskIcon);
+        });
+
+    });
+
+
+    function setUncheckedIcon(elem){
+        // set up elem icon to unchecked
+        elem.textContent = 'radio_button_unchecked';
+    }
+    function setCheckedIcon(elem){
+        // set up elem icon to checked
+        elem.textContent = 'check_circle';
+    }
+    function setAddIcon(elem){
+        // set up elem icon to add
+        elem.textContent = 'control_point';
+    }
+
+    function setTaskCompleted(task){
+
+    }
+
+    </script>
 {% endblock %}

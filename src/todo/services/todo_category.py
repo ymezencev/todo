@@ -23,9 +23,18 @@ def update_category_name(new_name: str, category, user):
 def update_category_order_num(new_order_num: int, category, user):
     pass
 
-def delete_category(category):
-    """Delete category"""
+def delete_category_by_slug(slug: str, user_id: int):
+    """Delete user category by passed name"""
+    user = User.objects.get(id=user_id)
+    if not user:
+        raise("Unable to delete catagory. User not found.")
+
+    category = Category.objects.filter(user=user, slug=slug)
+    if not category:
+        raise (f"Unable to delete catagory. Category not found. User: {user_id}, {slug}")
+
     category.delete()
+
 
 def get_new_unique_name(name, user):
     """Get a new name until it is unique"""
