@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from datetime import date
+import logging
 
 from .services.user_auth import register_user, login_user, logout_user
 from .services import todo_task, todo_category
+
+
+logger = logging.getLogger(__name__)
 
 
 def register_page(request):

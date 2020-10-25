@@ -113,3 +113,38 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [STATIC_DIR, ]
 
 LOGIN_URL = 'login'
+
+LOGGING = {
+    'version': 1,
+    'loggers': {
+        'todo': {
+            'handlers': ['file_todo'],
+            'level': 'INFO'
+        },
+        'auth': {
+            'handlers': ['file_auth'],
+            'level': 'INFO'
+        }
+    },
+    'handlers': {
+        'file_todo': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './logs/todo.log',
+            'formatter': 'custom_todo'
+        },
+        'file_auth': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './logs/auth.log',
+            'formatter': 'custom_todo'
+        }
+    },
+    'formatters':{
+        'custom_todo': {
+            'format': '{levelname} {asctime} {message} [{filename} {funcName}]',
+            'style': '{'
+        }
+    }
+}
+
