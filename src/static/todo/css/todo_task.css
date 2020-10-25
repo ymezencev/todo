@@ -12,7 +12,7 @@
 
 .tasks i {
     padding-right: 10px;
-    color: #757575
+    color: #757575;
 }
 
 .tasks-scroll-area {
@@ -79,7 +79,6 @@
     background-color: #f5f5f5;
 
 }
-
 #delete-task-btn {
     color: #e73c3c;
     border-top: solid 2px #f0f0f0;
@@ -87,4 +86,14 @@
 }
 #delete-task-btn i {
     color: #e73c3c;
+}
+
+/*Important tasks */
+.important-btn {
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+.task-item.important .important-btn i {
+    color: #1976D2;
 }

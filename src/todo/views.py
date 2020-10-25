@@ -112,3 +112,23 @@ def delete_task(request, category_slug: str, task_id: int):
 
     url = reverse('category', args=(category_slug,))
     return redirect(url)
+
+
+@login_required
+def set_task_important(request, category_slug: str, task_id: int):
+    """mark task as important and get back to passed category_slug page"""
+    if request.method == 'GET':
+        todo_task.set_task_important(task_id=task_id)
+
+    url = reverse('category', args=(category_slug,))
+    return redirect(url)
+
+@login_required
+def set_task_not_important(request, category_slug: str, task_id: int):
+    """mark task as not important and get back to passed category_slug page"""
+    if request.method == 'GET':
+        todo_task.set_task_not_important(task_id=task_id)
+
+    url = reverse('category', args=(category_slug,))
+    return redirect(url)
+

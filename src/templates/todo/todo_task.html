@@ -25,6 +25,8 @@
                 <a href="{% url 'finish_task' current_category_slug t.id %}">
                     <i class="small material-icons">radio_button_unchecked</i></a>
                     {{ t.task }}
+                <a href="{% url 'set_task_important' current_category_slug t.id %}" class="important-btn">
+                    <i class="small material-icons ">star_border</i></a>
             </div>
         {% endfor %}
         </div>

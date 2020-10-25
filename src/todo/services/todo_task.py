@@ -42,7 +42,6 @@ def get_my_day_tasks(user_id: int):
 
 
 def get_custom_category_tasks(category_slug: str, user_id: int):
-
     tasks = Task.objects.filter(
         user=User.objects.get(id=user_id),
         category=Category.objects.get(slug=category_slug)).order_by(
@@ -78,10 +77,28 @@ def delete_task(task_id):
     task.delete()
 
 def finish_task(task_id):
+    # complete task
     task = Task.objects.get(id=task_id)
     if task is None:
         return
-
     if task.is_completed is False:
         task.is_completed = True
+        task.save()
+
+def set_task_important(task_id):
+    # change from not important to important
+    task = Task.objects.get(id=task_id)
+    if task is None:
+        return
+    if task.is_important is False:
+        task.is_important = True
+        task.save()
+
+def set_task_not_important(task_id):
+    # change from important to not important
+    task = Task.objects.get(id=task_id)
+    if task is None:
+        return
+    if task.is_important is True:
+        task.is_important = False
         task.save()
