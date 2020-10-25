@@ -73,12 +73,16 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 200px;
+    width: 250px;
     display: none;
     flex-direction: column;
     background-color: #f5f5f5;
 
 }
+.edit-task-box i {
+    color: #d0d0d0;
+}
+
 #delete-task-btn {
     color: #e73c3c;
     border-top: solid 2px #f0f0f0;

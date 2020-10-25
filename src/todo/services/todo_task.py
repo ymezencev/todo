@@ -19,15 +19,20 @@ def get_tasks(category_slug: str, user_id: int):
 
 
 def get_all_tasks(user_id: int):
-    tasks = Task.objects.filter(user_id=user_id).order_by('is_completed',
-                                                          '-date_created')
+    tasks = Task.objects.filter(user_id=user_id).order_by(
+        'is_completed',
+        '-is_important',
+        '-date_created')
     return tasks
 
 
 def get_important_tasks(user_id: int):
     tasks = Task.objects.filter(
         user_id=user_id,
-        is_important=True).order_by('is_completed', '-date_created')
+        is_important=True).order_by(
+            'is_completed',
+            '-is_important',
+            '-date_created')
 
     return tasks
 
@@ -36,7 +41,10 @@ def get_my_day_tasks(user_id: int):
     today = date.today()
     tasks = Task.objects.filter(
         user_id=user_id,
-        date_created__date=today).order_by('is_completed', '-date_created')
+        date_created__date=today).order_by(
+            'is_completed',
+            '-is_important',
+            '-date_created')
 
     return tasks
 
@@ -76,6 +84,7 @@ def delete_task(task_id):
 
     task.delete()
 
+
 def finish_task(task_id):
     # complete task
     task = Task.objects.get(id=task_id)
@@ -85,6 +94,17 @@ def finish_task(task_id):
         task.is_completed = True
         task.save()
 
+
+def remove_from_completed(task_id):
+    # remove from completed task
+    task = Task.objects.get(id=task_id)
+    if task is None:
+        return
+    if task.is_completed is True:
+        task.is_completed = False
+        task.save()
+
+
 def set_task_important(task_id):
     # change from not important to important
     task = Task.objects.get(id=task_id)
@@ -93,6 +113,7 @@ def set_task_important(task_id):
     if task.is_important is False:
         task.is_important = True
         task.save()
+
 
 def set_task_not_important(task_id):
     # change from important to not important

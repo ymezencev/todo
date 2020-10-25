@@ -32,10 +32,21 @@ document.querySelectorAll('.task-item').forEach(item => {
 function addEditPopUpListener(taskItem){
     taskItem.addEventListener('contextmenu', (e) => {
         e.preventDefault();
-        let url = taskItem.getElementsByTagName('a')[0];
+        const url = taskItem.getElementsByTagName('a')[0].href.replace('finish_task', '');
         showPopUp(popUp = popUpEditTasks, x = e.clientX, y = e.clientY);
-        let delete_btn = document.getElementById('delete-task-btn');
-        delete_btn.href = url.href.replace('finish_task', 'delete_task');
+
+        // move to completed
+        const moveToCompletedBtn = document.getElementById('move-to-completed-btn');
+        moveToCompletedBtn.href = url + 'finish_task';
+
+        // remove from completed
+        const removeFromCompletedBtn = document.getElementById('remove-from-completed-btn');
+        removeFromCompletedBtn.href = url + 'remove_from_completed';
+
+        //delete btn
+        const deleteBtn = document.getElementById('delete-task-btn');
+        deleteBtn.href = url + 'delete_task';
+
         return false;
     });
 }

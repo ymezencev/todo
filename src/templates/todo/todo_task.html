@@ -4,7 +4,7 @@
 
      <div class="tasks">
         <div class="title">
-            Title tasks {{ today }}
+            <!-- Category name + today date-->
         </div>
         <!-- Add a new task form -->
         <div class="new-task">
@@ -34,11 +34,16 @@
 
      <!-- Edit tasks box-->
          <div class="edit-task-box" id="edit-task-pop-up">
+            <a href="" class="category-item" id="move-to-completed-btn">
+                 <i class="small material-icons">check_circle</i><span>Move to completed</span>
+             </a>
+             <a href="" class="category-item" id="remove-from-completed-btn">
+                 <i class="small material-icons">refresh</i><span>Remove from completed</span>
+             </a>
              <a href="" class="category-item" id="delete-task-btn">
                  <i class="small material-icons">delete_forever</i><span>Delete task</span>
              </a>
          </div>
-
      </div>
 
     <script type="text/javascript">

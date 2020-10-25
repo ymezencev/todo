@@ -1,7 +1,7 @@
 
 const popUpEditCategories = document.getElementById('edit-category-pop-up');
 const hideCategoriesBtn = document.getElementById('hide-categories-btn');
-
+const tasksTitle = document.querySelector('.tasks .title');
 
 // Categories events listener
 document.addEventListener('DOMContentLoaded', (e) => {
@@ -37,7 +37,9 @@ function highlightCurrentCategoryMenu() {
 
     document.querySelectorAll('.categories a').forEach(item => {
         if(currentURL.indexOf(item.getAttribute('href')) !== -1){
-          item.classList.add('active');
+            item.classList.add('active');
+            let name = item.getElementsByTagName('span')[0].textContent;
+            tasksTitle.innerHTML = name + '<br>' + new Date().toDateString();
         }
     });
 }

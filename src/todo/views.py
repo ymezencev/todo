@@ -25,12 +25,10 @@ def get_todo_page(request, category_slug:str='all'):
         Get categories
         Get all tasks or get category_slug tasks"""
     user_id = request.user.id
-    today = date.today()
     categories = todo_category.get_categories(user_id=user_id)
     tasks = todo_task.get_tasks(category_slug=category_slug, user_id=user_id)
 
     context = {
-        'today': today,
         'current_category_slug': category_slug,
         'categories': categories,
         'tasks': tasks,
@@ -105,6 +103,17 @@ def finish_task(request, category_slug: str, task_id: int):
 
 
 @login_required
+def remove_from_completed(request, category_slug: str, task_id: int):
+    """Remove task from completed and get back to passed category_slug page"""
+    if request.method == 'GET':
+        user_id = request.user.id
+        todo_task.remove_from_completed(task_id=task_id)
+
+    url = reverse('category', args=(category_slug,))
+    return redirect(url)
+
+
+@login_required
 def delete_task(request, category_slug: str, task_id: int):
     """Delete task and get back to passed category_slug page"""
     if request.method == 'GET':
@@ -122,6 +131,7 @@ def set_task_important(request, category_slug: str, task_id: int):
 
     url = reverse('category', args=(category_slug,))
     return redirect(url)
+
 
 @login_required
 def set_task_not_important(request, category_slug: str, task_id: int):
