@@ -18,7 +18,6 @@ def get_tasks(category_slug: str, user_id: int):
         tasks = get_my_day_tasks(user_id)
     else:
         tasks = get_custom_category_tasks(category_slug, user_id)
-    a = 1/0
     return tasks
 
 
