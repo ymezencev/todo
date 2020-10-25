@@ -18,7 +18,7 @@ def get_tasks(category_slug: str, user_id: int):
         tasks = get_my_day_tasks(user_id)
     else:
         tasks = get_custom_category_tasks(category_slug, user_id)
-
+    a = 1/0
     return tasks
 
 
@@ -76,6 +76,8 @@ def add_task(text: str, category_slug: str, user_id: int):
 
     user = User.objects.get(id=user_id)
 
+    standard_categories = ['all', 'important', 'my_day']
+
     if not user:
         logger.error(f'User not found. '
             f'user: {user_id} category_slug: {category_slug}')
@@ -83,7 +85,7 @@ def add_task(text: str, category_slug: str, user_id: int):
 
     category = Category.objects.filter(slug=category_slug, user=user)
 
-    if not category:
+    if not category and category_slug not in standard_categories:
         logger.error(f'Category not found. '
             f'user: {user_id} category_slug: {category_slug}')
         return

@@ -69,7 +69,6 @@ def login_user(request):
 
 def logout_user(request):
     """Method for user logout"""
-    logger.info(f'User logged out.'
-        f'user_id: {request.user.id}')
+    logger.info(f'User logged out. user_id: {request.user.id}')
     logout(request)
     return redirect('login')

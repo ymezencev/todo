@@ -37,6 +37,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'core.middleware.ExceptionHandler',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -116,17 +118,37 @@ LOGIN_URL = 'login'
 
 LOGGING = {
     'version': 1,
-    'loggers': {
-        'todo': {
-            'handlers': ['file_todo'],
-            'level': 'DEBUG'
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
         },
-        'auth': {
-            'handlers': ['file_auth'],
-            'level': 'INFO'
-        }
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'custom_todo': {
+            'format': '{levelname} [{asctime}] ({message}) [{filename} {funcName}]',
+            'style': '{'
+        },
     },
     'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'console_debug_false': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'custom_todo',
+        },
         'file_todo': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -140,11 +162,24 @@ LOGGING = {
             'formatter': 'custom_todo'
         }
     },
-    'formatters':{
-        'custom_todo': {
-            'format': '{levelname} {asctime} {message} [{filename} {funcName}]',
-            'style': '{'
+    'loggers': {
+        'todo': {
+            'handlers': ['file_todo'],
+            'level': 'INFO'
+        },
+        'auth': {
+            'handlers': ['file_auth'],
+            'level': 'INFO'
+        },
+        'django': {
+            'handlers': ['console', 'console_debug_false'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
         }
-    }
+    },
 }
 
