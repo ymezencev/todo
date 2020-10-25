@@ -26,7 +26,7 @@ def register_user(request):
             form.save()
             username = form.cleaned_data.get('username')
             logger.info(f'New user was registered. '
-                'Username: {username} user_id: {request.user.id}')
+                f'Username: {username} user_id: {request.user.id}')
             return redirect('login')
 
     errors = form.errors.as_json()
@@ -51,10 +51,10 @@ def login_user(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
 
-            if user is not None:
+            if user:
                 login(request, user)
                 logger.info(f'User logged in. '
-                    'Username: {username} user_id: {request.user.id}')
+                    f'Username: {username} user_id: {request.user.id}')
                 return redirect('todo')
 
         errors = {'invalid_login': 'Incorrect username or password'}
@@ -70,6 +70,6 @@ def login_user(request):
 def logout_user(request):
     """Method for user logout"""
     logger.info(f'User logged out.'
-        'user_id: {request.user.id}')
+        f'user_id: {request.user.id}')
     logout(request)
     return redirect('login')

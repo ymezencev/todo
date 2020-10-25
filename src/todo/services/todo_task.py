@@ -76,14 +76,14 @@ def add_task(text: str, category_slug: str, user_id: int):
 
     user = User.objects.get(id=user_id)
 
-    if user is None:
+    if not user:
         logger.error(f'User not found. '
             f'user: {user_id} category_slug: {category_slug}')
         return
 
     category = Category.objects.filter(slug=category_slug, user=user)
 
-    if category is None:
+    if not category:
         logger.error(f'Category not found. '
             f'user: {user_id} category_slug: {category_slug}')
         return
@@ -104,7 +104,7 @@ def add_task(text: str, category_slug: str, user_id: int):
 def delete_task(task_id):
     """Delete task by id"""
     task = Task.objects.get(id=task_id)
-    if task is None:
+    if not task:
         logger.error(f'Task not found. task_id: {task_id}')
         return
 
@@ -116,7 +116,7 @@ def delete_task(task_id):
 def finish_task(task_id):
     # complete task
     task = Task.objects.get(id=task_id)
-    if task is None:
+    if not task:
         logger.error(f'Task not found. task_id: {task_id}')
         return
 
@@ -129,7 +129,7 @@ def finish_task(task_id):
 def remove_from_completed(task_id):
     # remove from completed task
     task = Task.objects.get(id=task_id)
-    if task is None:
+    if not task:
         logger.error(f'Task not found. task_id: {task_id}')
         return
     if task.is_completed is True:
@@ -141,7 +141,7 @@ def remove_from_completed(task_id):
 def set_task_important(task_id):
     # change from not important to important
     task = Task.objects.get(id=task_id)
-    if task is None:
+    if not task:
         logger.error(f'Task not found. task_id: {task_id}')
         return
 
@@ -154,7 +154,7 @@ def set_task_important(task_id):
 def set_task_not_important(task_id):
     # change from important to not important
     task = Task.objects.get(id=task_id)
-    if task is None:
+    if not task:
         logger.error(f'Task not found. task_id: {task_id}')
         return
     if task.is_important is True:

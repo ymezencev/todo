@@ -119,7 +119,7 @@ LOGGING = {
     'loggers': {
         'todo': {
             'handlers': ['file_todo'],
-            'level': 'INFO'
+            'level': 'DEBUG'
         },
         'auth': {
             'handlers': ['file_auth'],

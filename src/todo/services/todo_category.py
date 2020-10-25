@@ -38,15 +38,15 @@ def update_category_order_num(new_order_num: int, category, user):
 def delete_category_by_slug(slug: str, user_id: int):
     """Delete user category by passed name"""
     user = User.objects.get(id=user_id)
-    if user is None:
+    if not user:
         logger.error(f'User not found. Can not delete a category. '
             f'user_id: {user_id} slug: {slug}')
         return
 
     category = Category.objects.filter(user=user, slug=slug)
-    if category is None:
+    if not category:
         logger.error(f'Category not found. Can not delete a category. '
-           f'user_id: {user_id} slug: {slug}')
+            f'user_id: {user_id} slug: {slug}')
         return
 
     logger.debug(f'Delete a category. user_id: {user_id} slug: {slug}')
@@ -57,15 +57,15 @@ def delete_category_by_slug(slug: str, user_id: int):
 def get_new_unique_name(name, user):
     """Get a new name until it is unique"""
 
-    if user is None:
+    if not user:
         logger.error(f'User not found when creating a new unique name '
-            f'user: {user} category_name: {name}')
+             f'user: {user} category_name: {name}')
         return
 
     def is_name_unique(name, user):
         """check if there is no such category name yet"""
         category = Category.objects.filter(user=user, name=name)
-        if category is not None:
+        if category:
             return False
         return True
 
@@ -86,7 +86,7 @@ def get_new_unique_name(name, user):
 
 def get_new_slug(name, user):
 
-    if user is None:
+    if not user:
         logger.error(f'User not found when getting a new slug '
             f'user: {user} category_name: {name}')
         return
@@ -103,14 +103,14 @@ def get_new_slug(name, user):
 def add_new_category(name: str, user_id: int):
     """Add a new custom user category  by user_id"""
     user = User.objects.get(id=user_id)
-    if user is None:
+    if not user:
         logger.error(f'User not found. '
             f'user: {user_id} category_name: {name}')
         return
 
     category =  create_category(name=name, user=user)
 
-    logger.debug(f'New category was added. '
+    logger.info(f'New category was added. '
         f'user_id: {user_id} category_id: {category.id}')
     return category
 
@@ -118,7 +118,7 @@ def get_categories(user_id: int):
     """Get all user categories"""
     categories = Category.objects.filter(user_id=user_id).order_by('order_num')
 
-    if categories is None:
+    if not categories:
         logger.error(f'Categories not found. user: {user_id}')
         return
     logger.debug(f'get all categories for user_id: {user_id}')
