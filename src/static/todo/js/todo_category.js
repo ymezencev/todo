@@ -51,7 +51,6 @@ document.querySelectorAll('.custom-category').forEach(item => {
         showPopUp(popUp=popUpEditCategories, x=e.clientX, y=e.clientY);
         delete_btn = document.getElementById('delete-category-btn');
         delete_btn.href = item.href + 'delete_category';
-        console.log('item href = ' + delete_btn.href);
         return false;
     });
 });

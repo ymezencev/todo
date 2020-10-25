@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
+from datetime import date
+
 from .services.user_auth import register_user, login_user, logout_user
 from .services import todo_task, todo_category
-
-from datetime import date
 
 
 def register_page(request):
@@ -35,11 +35,13 @@ def get_todo_page(request, category_slug:str='all'):
         'categories': categories,
         'tasks': tasks,
     }
+
     return render(request, 'todo/todo.html', context)
 
 
 @login_required
 def redirect_to_page_all_tasks(request):
+    """Redirect to todo page (call get_todo_page)"""
     category_slug = 'all'
     url = reverse('category', args=(category_slug,))
     return redirect(url)
@@ -64,7 +66,7 @@ def add_new_category(request, category_slug: str):
 
 @login_required
 def delete_category(request, category_slug: str):
-    """Delete category"""
+    """Delete category by slug"""
     if request.method == 'GET':
         user_id = request.user.id
         todo_category.delete_category_by_slug(slug=category_slug, user_id=user_id)
@@ -92,12 +94,21 @@ def add_new_task(request, category_slug: str):
 
 
 @login_required
-def delete_task(request, category_slug: str):
-    if request.method == 'POST':
-        task_id = request.POST.get('task')
-        if task_id is not None:
-            todo_task.delete_task(task_id = task_id)
+def finish_task(request, category_slug: str, task_id: int):
+    """Finish task and get back to passed category_slug page"""
+    if request.method == 'GET':
+        user_id = request.user.id
+        todo_task.finish_task(task_id=task_id)
 
-        url = reverse('category', args=(category_slug,))
-        return redirect(url)
+    url = reverse('category', args=(category_slug,))
+    return redirect(url)
 
+
+@login_required
+def delete_task(request, category_slug: str, task_id: int):
+    """Delete task and get back to passed category_slug page"""
+    if request.method == 'GET':
+        todo_task.delete_task(task_id=task_id)
+
+    url = reverse('category', args=(category_slug,))
+    return redirect(url)

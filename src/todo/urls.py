@@ -23,7 +23,12 @@ urlpatterns = [
     path('todo/<slug:category_slug>/add_new_task',
          views.add_new_task,
          name='add_new_task'),
-    path('todo/<slug:category_slug>/delete_task',
+
+    path('todo/<slug:category_slug>/<int:task_id>/finish_task',
+         views.finish_task,
+         name='finish_task'),
+
+    path('todo/<slug:category_slug>/<int:task_id>/delete_task',
          views.delete_task,
          name='delete_task'),
 ]

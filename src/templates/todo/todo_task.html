@@ -1,6 +1,5 @@
-
 {% load static %}
-
+{% load tags %}
 {% block task %}
 
      <div class="tasks">
@@ -22,54 +21,26 @@
         <!-- All tasks -->
         <div class="tasks-scroll-area">
         {% for t in tasks %}
-            <div class="task-item">
-                <i class="small material-icons">radio_button_unchecked</i> {{ t.task }}
-                 <form method="POST" action="{% url 'delete_task' current_category_slug %}" novalidate>
-                     {% csrf_token %}
-                     <input type="hidden" name="task" value="{{ t.id }}">
-                    <!--input class="" type="submit" value="Delete"-->
-                 </form>
+            <div class="task-item" id="{{ t.id }}">
+                <a href="{% url 'finish_task' current_category_slug t.id %}">
+                    <i class="small material-icons">radio_button_unchecked</i></a>
+                    {{ t.task }}
             </div>
         {% endfor %}
         </div>
 
-    </div>
 
-    <script>
-    const addTaskInput = document.querySelector('.add-task-input');
-    const addTaskIcon = document.getElementById('add-task-icon');
+     <!-- Edit tasks box-->
+         <div class="edit-task-box" id="edit-task-pop-up">
+             <a href="" class="category-item" id="delete-task-btn">
+                 <i class="small material-icons">delete_forever</i><span>Delete task</span>
+             </a>
+         </div>
 
-    // Tasks events listener
-    document.addEventListener('DOMContentLoaded', (e) => {
+     </div>
 
-        // add task input change icon to unchecked
-        addTaskInput.addEventListener('focus', function() {
-            setUncheckedIcon(addTaskIcon);
-        });
-        // add task input change icon to add
-        addTaskInput.addEventListener('blur', function() {
-            setAddIcon(addTaskIcon);
-        });
-
-    });
-
-
-    function setUncheckedIcon(elem){
-        // set up elem icon to unchecked
-        elem.textContent = 'radio_button_unchecked';
-    }
-    function setCheckedIcon(elem){
-        // set up elem icon to checked
-        elem.textContent = 'check_circle';
-    }
-    function setAddIcon(elem){
-        // set up elem icon to add
-        elem.textContent = 'control_point';
-    }
-
-    function setTaskCompleted(task){
-
-    }
-
+    <script type="text/javascript">
+        let tasks = {{ tasks|json|safe }};
     </script>
+
 {% endblock %}
