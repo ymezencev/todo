@@ -13,6 +13,7 @@ prompt-toolkit==3.0.8
 psycopg2==2.8.6
 ptyprocess==0.6.0
 Pygments==2.7.2
+python-dotenv==0.14.0
 pytz==2020.1
 sqlparse==0.3.1
 traitlets==5.0.5
