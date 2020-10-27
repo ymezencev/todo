@@ -107,7 +107,7 @@ def add_new_category(name: str, user_id: int):
         logger.error(f'User not found. '
             f'user: {user_id} category_name: {name}')
         return
-
+    name = name[:30] # max characters 30
     category =  create_category(name=name, user=user)
 
     logger.info(f'New category was added. '

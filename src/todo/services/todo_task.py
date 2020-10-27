@@ -92,6 +92,8 @@ def add_task(text: str, category_slug: str, user_id: int):
     # check if the task was created from the important tasks page
     is_important = True if category_slug == 'important' else False
 
+    text = text[:400] # max characters 400
+
     task = Task.objects.create(task=text, is_important=is_important, user=user)
 
     task.category.add(*category)
