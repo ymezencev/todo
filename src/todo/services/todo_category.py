@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from todo.models import Category
+from django.core.exceptions import ObjectDoesNotExist
 import hashlib
 import logging
 
@@ -30,15 +31,15 @@ def update_category_name(new_name: str, category, user):
         f'user_id: {user.id} category_id: {category.id}')
 
 
-
 def update_category_order_num(new_order_num: int, category, user):
     pass
 
 
 def delete_category_by_slug(slug: str, user_id: int):
     """Delete user category by passed name"""
-    user = User.objects.get(id=user_id)
-    if not user:
+    try:
+        user = User.objects.get(id=user_id)
+    except ObjectDoesNotExist:
         logger.error(f'User not found. Can not delete a category. '
             f'user_id: {user_id} slug: {slug}')
         return
@@ -102,10 +103,11 @@ def get_new_slug(name, user):
 
 def add_new_category(name: str, user_id: int):
     """Add a new custom user category  by user_id"""
-    user = User.objects.get(id=user_id)
-    if not user:
+    try:
+        user = User.objects.get(id=user_id)
+    except ObjectDoesNotExist:
         logger.error(f'User not found. '
-            f'user: {user_id} category_name: {name}')
+                 f'user: {user_id} category_name: {name}')
         return
     name = name[:30] # max characters 30
     category =  create_category(name=name, user=user)
@@ -117,10 +119,6 @@ def add_new_category(name: str, user_id: int):
 def get_categories(user_id: int):
     """Get all user categories"""
     categories = Category.objects.filter(user_id=user_id).order_by('order_num')
-
-    if not categories:
-        logger.error(f'Categories not found. user: {user_id}')
-        return
     logger.debug(f'get all categories for user_id: {user_id}')
 
     return categories
