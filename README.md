@@ -4,7 +4,7 @@
 ### A Django web application to add and organize tasks. To do application makes you more productive. Project for educational purposes.
 
 ### Cool things about this app:
-* Add as much tasks as you need
+* Add as many tasks as you need
 * Group tasks by categories
 * Create your own categories
 * The most important tasks could be found in "Important" category
